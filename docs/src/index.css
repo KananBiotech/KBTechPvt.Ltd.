@@ -1,869 +1,161 @@
-@import "tailwindcss";
-
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background-color: #f5f7f6;
+  color: #333;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
 
 
-/* ----------------------------------------- HomePage --------------------------*/
-:root {
-        --primary-color: #3A8D9C;
-        --secondary-color: #2e717e;
-        --text-color: #ffffff;
-        --button-bg: #f0f8ff; /* AliceBlue */
-        --button-text: #333333;
-        --font-family: 'Poppins', sans-serif;
-    }
+/* ===== HERO ===== */
+.hero {
+  height: 100vh;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.45),
+    rgba(0, 0, 0, 0.45)
+  ),
+  url("https://thefutureeconomy.ca/wp-content/uploads/2019/11/Fishing-Fisheries-Fishery-Industry-Canada-Future-Economy-Cropped.jpg") center/cover no-repeat;
 
-    /* Basic reset and body styles */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    body {
-        font-family: var(--font-family);
-        background-color: var(--primary-color);
-        color: var(--text-color);
-        overflow-x: hidden;
-        height: auto;
-    }
-
-    /* --- Header & Navigation --- */
-    .header { padding: 1.5rem 5%; }
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-    .nav-logo {
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: var(--text-color);
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        animation: fadeInDown 0.8s ease-out;
-    }
-    .nav-menu {
-        display: flex;
-        list-style: none;
-        gap: 2.5rem;
-        animation: fadeInDown 0.8s ease-out 0.2s;
-        animation-fill-mode: backwards;
-    }
-    .nav-link {
-        color: var(--text-color);
-        text-decoration: none;
-        font-size: 1rem;
-        font-weight: 500;
-        transition: color 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
-    }
-    .nav-link:hover { color: var(--button-bg); }
-    .nav-link .icon { font-size: 0.7rem; }
-    .search-btn {
-        background-color: var(--button-bg);
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        animation: fadeInDown 0.8s ease-out 0.4s;
-        animation-fill-mode: backwards;
-    }
-    .search-btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .search-btn .icon {
-        color: var(--primary-color);
-        font-size: 1rem;
-    }
-    .hamburger { display: none; cursor: pointer; }
-    .bar {
-        display: block;
-        width: 25px;
-        height: 3px;
-        margin: 5px auto;
-        transition: all 0.3s ease-in-out;
-        background-color: var(--text-color);
-    }
-
-    /* --- Hero Section --- */
-    .hero {
-        position: relative;
-        padding: 2rem 5%;
-        min-height: calc(100vh - 90px);
-        display: flex;
-        align-items: center;
-    }
-    .hero-content {
-        display: grid;
-        grid-template-columns: 1fr 1.2fr;
-        align-items: center;
-        gap: 2rem;
-        max-width: 1400px;
-        margin: 0 auto;
-        width: 100%;
-    }
-    .hero-bg-shapes {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        overflow: hidden;
-        z-index: -1;
-    }
-    .shape {
-        position: absolute;
-        border-radius: 50%;
-        background-color: var(--secondary-color);
-        opacity: 0.8;
-    }
-    .shape-1 { width: 700px; height: 700px; top: -150px; left: -200px; }
-    .shape-2 { width: 500px; height: 500px; top: 20%; left: 15%; }
-    .hero-text { animation: slideInFromLeft 1s ease-out; }
-    .hero-text h1 {
-        font-size: 5rem;
-        font-weight: 700;
-        line-height: 1.1;
-        margin-bottom: 1.5rem;
-    }
-    .hero-text p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        margin-bottom: 2.5rem;
-        max-width: 450px;
-    }
-    .cta-button {
-        background-color: var(--button-bg);
-        color: var(--button-text);
-        text-decoration: none;
-        padding: 1rem 2.5rem;
-        border-radius: 50px;
-        font-weight: 700;
-        font-size: 1rem;
-        display: inline-block;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .cta-button:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    /* --- Hero Image Grid --- */
-    .hero-images { animation: slideInFromRight 1s ease-out; }
-    .image-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto;
-        gap: 1rem;
-    }
-    .image-grid img {
-        width: 100%; height: 100%;
-        object-fit: cover;
-        border-radius: 15px;
-        transition: transform 0.4s ease, filter 0.4s ease;
-    }
-    .image-grid img:hover {
-        transform: scale(1.05);
-        filter: brightness(1.1);
-    }
-    .img-large { grid-column: 1 / 3; height: 350px; }
-    .img-small-1, .img-small-2 { height: 200px; }
-
-    /* --- Animations --- */
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideInFromLeft {
-        from { opacity: 0; transform: translateX(-50px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes slideInFromRight {
-        from { opacity: 0; transform: translateX(50px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-
-    /* --- Responsive & Mobile Menu Logic --- */
-    @media (max-width: 992px) {
-        .hero-content { grid-template-columns: 1fr; text-align: center; }
-        .hero-text { order: 2; }
-        .hero-images { order: 1; margin-bottom: 2rem; }
-        .hero-text p { margin: 0 auto 2.5rem auto; }
-        .hero-text h1 { font-size: 3.5rem; }
-        .shape-1 { width: 500px; height: 500px; left: -150px; }
-        .shape-2 { display: none; }
-        
-        .nav-menu {
-            position: fixed;
-            left: -100%;
-            top: 80px;
-            flex-direction: column;
-            background-color: var(--secondary-color);
-            width: 100%;
-            text-align: center;
-            transition: 0.3s;
-            gap: 0;
-            z-index: 100;
-        }
-        .nav-menu.active { left: 0; }
-        .nav-item { padding: 1rem 0; }
-        .hamburger { display: block; z-index: 101; }
-        .hamburger.active .bar:nth-child(2) { opacity: 0; }
-        .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-        .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-    }
-    @media (max-width: 576px) {
-        .hero-text h1 { font-size: 2.8rem; }
-        .img-large { height: 250px; }
-        .img-small-1, .img-small-2 { height: 150px; }
-    }
-    /* Login button styles */
-    .login-btn {
-      background-color: var(--button-bg);
-      color: var(--button-text);
-      text-decoration: none;
-      padding: 0.6rem 1.1rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      display: inline-block;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .login-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-    /* --- Footer Section --- */
-.footer-container {
-  background-color: var(--secondary-color);
-  padding: 4rem 5% 2rem;
-  color: #e0e0e0;
-}
-.footer-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-.footer-column h3, .footer-column h4 {
-  color: var(--text-color);
-  margin-bottom: 1rem;
-}
-.footer-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-.footer-column p {
-  line-height: 1.7;
-}
-.footer-links {
-  list-style: none;
-}
-.footer-links li {
-  margin-bottom: 0.75rem;
-}
-.footer-links a {
-  color: #e0e0e0;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.footer-links a:hover {
-  color: var(--button-bg);
-}
-.contact-info {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-.contact-icon {
-  color: var(--primary-color);
-}
-.social-icons {
-  display: flex;
-  gap: 1rem;
-}
-.social-icons a {
-  color: var(--secondary-color);
-  background-color: var(--text-color);
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  text-decoration: none;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-.social-icons a:hover {
-  transform: translateY(-3px);
-  background-color: var(--button-bg);
-}
-.footer-bottom {
-  text-align: center;
-  padding-top: 2rem;
-  border-top: 1px solid var(--primary-color);
-  font-size: 0.9rem;
-}
-/* ----------------------------------------- HomePage --------------------------*/
-
-
-/* ----------------------------------------- ContactPage --------------------------*/
-:root {
-  --primary-color: #3A8D9C;
-  --secondary-color: #2e717e;
-}
-.team-page-container {
-  max-width: 1280px;
-  margin: 1rem auto;
-  padding: 1rem 1rem;
-  color: #0a0f16; 
-}
-.team-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-.team-header h1 {
-  font-size: 2.25rem; 
-  font-weight: 700; 
-  color: #0a0f16;
-  margin-bottom: 0.1rem;
-}
-.team-header p {
-  font-size: 1.125rem; 
-  color: #272c32; 
-  max-width: 48rem; 
-  margin: 0 auto;
-}
-.team-grid {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr; 
-}
-.team-member-card {
-  background-color: #bdbdbd;
-  border-radius: 0.75rem; 
-  padding: 2rem;
-  text-align: center;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
-  transition: all 0.3s ease-in-out;
-}
-.team-member-card:hover {
-  transform: translateY(-0.5rem); 
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); 
-}
-.member-photo {
-  width: 8rem; 
-  height: 8rem; 
-  border-radius: 9999px; 
-  object-fit: cover;
-  margin: 0 auto 1.5rem auto;
-  border: 4px solid var(--primary-color);
-}
-.member-name {
-  font-size: 1.25rem; 
-  font-weight: 600; 
-  margin-bottom: 0.25rem;
-  color: #111827; 
-}
-.member-title {
-  font-weight: 500; 
-  color: var(--primary-color);
-  margin-bottom: 0.75rem;
-}
-.member-bio {
-  color: #4b5563; 
-  line-height: 1.625; 
-  margin-bottom: 1.5rem;
-  font-size: 0.875rem; 
-}
-.member-socials {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-.social-link {
-  color: #6b7280; 
-  font-size: 1.5rem; 
-  transition: color 0.3s;
-}
-.social-link:hover {
-  color: var(--primary-color);
-}
-@media (min-width: 640px) {
-  .team-page-container {
-    padding: 2rem 1.5rem;
-  }
-}
-@media (min-width: 768px) {
-  .team-header h1 {
-    font-size: 3rem; 
-  }
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr); 
-  }
-}
-@media (min-width: 1024px) {
-  .team-page-container {
-    padding: 2rem 2rem;
-  }
-  .team-grid {
-    grid-template-columns: repeat(3, 1fr); 
-  }
-}
-/* ----------------------------------------- ContactPage --------------------------*/
-
-
-.construction-page-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  min-height: calc(100vh - 160px); 
-  background-color: #1a1a1a;
-  color: var(--text-color, white); 
-  padding: 2rem 5%;
+  padding-top: 10px;
 }
 
-.construction-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+.hero-content {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  color: #fff;
+}
+
+.hero-content h1 {
+  font-size: 46px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero-content h1 span {
+  color: #b6d43a;
+}
+
+.hero-content p {
+  font-size: 18px;
   max-width: 600px;
+  margin-bottom: 30px;
 }
 
-.construction-worker-logo {
-  max-width: 250px;
-  height: auto;
-  margin-bottom: 1rem;
-}
-
-.construction-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1;
-  margin: 0;
-  color: var(--text-color, white); 
-  letter-spacing: 2px;
-}
-
-.construction-subtitle {
-  font-size: 2rem;
-  font-weight: 500;
-  line-height: 1;
-  margin: 0 0 2rem 0;
-  color: #ffcc00; 
-  letter-spacing: 1px;
-}
-
-.construction-message {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 2.5rem;
-  max-width: 450px;
-}
-
-.construction-back-button {
-  padding: 0.8rem 2rem;
-  font-size: 0.95rem;
-}
-
-@media (max-width: 576px) {
-  .construction-title {
-    font-size: 2.5rem;
-  }
-  .construction-subtitle {
-    font-size: 1.5rem;
-  }
-  .construction-worker-logo {
-    max-width: 200px;
-  }
-}
-/* ........................... Weather .......................*/
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ............................................... Chatbot CSS .....................................*/
-/* ===========================
-   💻 Desktop Styles
-=========================== */
-
-.chatbot-floating-btn {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  cursor: pointer;
-  z-index: 1000;
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Floating robot image */
-.chatbot-robot {
-  width: 160px;
-  height: 190px;
-  border-radius: 50%;
-  object-fit: contain;
-  transition: transform 0.3s ease;
-}
-
-.chatbot-robot:hover {
-  transform: scale(1.05);
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* Chat window */
-.chatbot-window {
-  position: fixed;
-  bottom: 15px;
-  right: 30px;
-  width: 380px;
-  height: 520px;
-  background: #ece5dd;
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+.hero-buttons {
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 999;
+  gap: 15px;
 }
 
-/* Header */
-.chatbot-header {
-  background: #075e54;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 15px;
-  border-radius: 20px 20px 0 0;
-}
-
-.chatbot-header-img {
-  width: 35px;
-  height: 35px;
-}
-
-.chatbot-header-title {
-  flex: 1;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.chatbot-close {
-  background: transparent;
-  color: white;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-/* Messages Area */
-.chatbot-messages {
-  flex: 1;
-  padding: 15px;
-  overflow-y: auto;
-  background-color: #ece5dd;
-  scrollbar-width: thin;
-  scrollbar-color: #ccc transparent;
-}
-
-.chatbot-messages::-webkit-scrollbar {
-  width: 6px;
-}
-
-.chatbot-messages::-webkit-scrollbar-thumb {
-  background-color: #bdbdbd;
-  border-radius: 5px;
-}
-
-/* Message bubbles */
-.chatbot-msg {
-  max-width: 75%;
-  padding: 10px 14px;
-  margin-bottom: 10px;
-  border-radius: 20px;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  word-wrap: break-word;
-  white-space: pre-wrap;
-}
-
-.chatbot-msg.bot {
-  background: #ffffff;
-  align-self: flex-start;
-  color: #222;
-}
-
-.chatbot-msg.user {
-  background: #dcf8c6;
-  align-self: flex-end;
-  color: #000; /* ✅ fixed visibility of user text */
-}
-
-/* Typing message animation */
-.chatbot-msg.bot.typing::after {
-  content: "💭 Typing...";
-  color: #888;
-  font-style: italic;
-}
-
-/* Input Section */
-.chatbot-input-container {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-top: 1px solid #ccc;
-  background: #f0f0f0;
-}
-
-.chatbot-input {
-  flex: 1;
-  padding: 12px 15px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-  outline: none;
-  font-size: 1rem;
-  color: #222; /* ✅ visible text while typing */
-  background-color: #fff;
-}
-
-.chatbot-input::placeholder {
-  color: #888;
-}
-
-.chatbot-send-btn {
-  margin-left: 10px;
-  background: #25d366;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: transform 0.2s ease;
-}
-
-.chatbot-send-btn:hover {
-  transform: scale(1.05);
-}
-
-/* ===========================
-   🧠 HTML Formatting for Bot Replies
-=========================== */
-
-/* Bold text */
-.chatbot-msg.bot b {
-  font-weight: 700;
-  color: #075e54;
-}
-
-/* Headings from ### */
-.chatbot-msg.bot h1,
-.chatbot-msg.bot h2,
-.chatbot-msg.bot h3,
-.chatbot-msg.bot h4 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #075e54;
-  margin: 8px 0 4px;
-  display: block;
-}
-
-/* Remove any Markdown-style ### prefixes */
-.chatbot-msg.bot h1::before,
-.chatbot-msg.bot h2::before,
-.chatbot-msg.bot h3::before,
-.chatbot-msg.bot h4::before {
-  content: "";
-}
-
-.chatbot-msg.bot ul {
-  margin: 6px 0 6px 20px;
-  padding: 0;
-}
-
-.chatbot-msg.bot li {
-  margin-bottom: 4px;
-  line-height: 1.4;
-}
-
-.chatbot-msg.bot br {
-  margin-bottom: 6px;
-}
-
-.chatbot-msg.bot p {
-  margin: 5px 0;
-  line-height: 1.5;
-}
-
-.chatbot-msg.bot a {
-  color: #0b93f6;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.chatbot-msg.bot a:hover {
+.hero-buttons a {
+  padding: 14px 28px;
+  border-radius: 30px;
   text-decoration: none;
+  font-weight: bold;
 }
 
-/* Emojis slightly bigger for clarity */
-.chatbot-msg.bot, .chatbot-msg.user {
-  font-family: "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+.btn-primary {
+  background: #95ba03;
+  color: #000;
 }
 
-/* ===========================
-   📱 Mobile Styles
-=========================== */
+.btn-secondary {
+  border: 2px solid #fff;
+  color: #fff;
+}
 
+/* ===== SECTIONS ===== */
+section {
+  padding: 80px 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title h2 {
+  font-size: 36px;
+  color: #06ae1f;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.card h3 {
+  color: #7bbf2a;
+  margin-bottom: 15px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: #102626;
+  color: #fff;
+  padding: 40px 20px;
+}
+
+footer p {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .chatbot-floating-btn {
-    bottom: 10px;
-    right: 10px;
+  .hero-content h1 {
+    font-size: 32px;
   }
 
-  .chatbot-robot {
-    width: 120px;
-    height: 120px;
-  }
-
-  .chatbot-window {
-    bottom: 0;
-    right: 0;
-    width: 90vw;
-    height: 60vh;
-    border-radius: 15px 15px 0 0;
-  }
-
-  .chatbot-header {
-    gap: 8px;
-    padding: 8px 10px;
-  }
-
-  .chatbot-header-img {
-    width: 28px;
-    height: 28px;
-  }
-
-  .chatbot-header-title {
-    font-size: 0.9rem;
-  }
-
-  .chatbot-input {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-
-  .chatbot-send-btn {
-    padding: 9px 12px;
-    font-size: 0.9rem;
+  nav ul {
+    display: none;
   }
 }
 
-/* ===========================
-   ✨ Markdown → Clean Formatting
-=========================== */
 
-.chatbot-msg.bot h3,
-.chatbot-msg.bot strong {
-  font-weight: 700;
-  color: #075e54;
+/* ===== CARD ANIMATION ===== */
+.card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s ease;
 }
 
-.chatbot-msg.bot h3 {
-  margin-top: 10px;
-  margin-bottom: 4px;
-  font-size: 1rem;
-  display: block;
+/* Initial directions */
+.card.left {
+  transform: translateX(-120px);
 }
 
+.card.right {
+  transform: translateX(120px);
+}
 
+.card.center {
+  transform: translateY(120px);
+}
+
+/* When visible */
+.card.show {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
