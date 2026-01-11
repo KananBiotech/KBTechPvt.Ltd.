@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://kananbiotech.com/sitemap.xml
