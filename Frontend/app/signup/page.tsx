@@ -33,9 +33,9 @@ export default function SignupPage() {
   }, [formData])
 
 
-  const handleChange = (field: keyof UserData, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+  // const handleChange = (field: keyof UserData, value: string) => {
+  //   setFormData((prev) => ({ ...prev, [field]: value }))
+  // }
 
   // const handleSubmit = async (e: React.FormEvent) => {
   //     e.preventDefault()

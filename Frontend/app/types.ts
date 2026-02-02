@@ -18,3 +18,11 @@ export type SessionPayload = {
         role: "admin" | "user"
     }
 }
+
+export type SessionContext = {
+    expiresAt: Date,
+    user: {
+        userId: string,
+        role: "admin" | "user"
+    }
+}

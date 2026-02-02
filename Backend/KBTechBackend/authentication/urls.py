@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import login, logout, register, verify
+from .views import login, logout, register, verify, delete_all, save_session
 
 urlpatterns = [
 
@@ -7,4 +7,7 @@ urlpatterns = [
     path('auth/logout/', logout, name='logout'),
     path('auth/signup/', register, name='register'),
     path('auth/verify/', verify, name='verify'),
+    path('auth/save_session/', save_session, name='verify'),
+
+    path('auth/delete_all_users', delete_all, name='delete')
 ]

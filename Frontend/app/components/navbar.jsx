@@ -35,14 +35,14 @@ export function Navbar() {
 
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
-              <div key={link.name} className="relative">
+              <div key={link?.name} className="relative">
                 {link.hasDropdown ? (
                   <button
                     onMouseEnter={() => setShowProducts(true)}
                     onMouseLeave={() => setShowProducts(false)}
                     className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {link.name}
+                     {link?.name}
                     <ChevronDown className="w-4 h-4" />
                   </button>
                 ) : (
@@ -50,7 +50,7 @@ export function Navbar() {
                     href={link.href}
                     className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {link.name}
+                     {link?.name}
                   </Link>
                 )}
                 {link.hasDropdown && showProducts && (
@@ -97,23 +97,23 @@ export function Navbar() {
           <div className="px-4 py-4 space-y-2">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={link?.name}
                 href={link.href}
                 className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg"
                 onClick={() => setIsOpen(false)}
               >
-                {link.name}
+                {link?.name}
               </Link>
             ))}
             <div className="pt-4 flex flex-col gap-2">
-              {/*<Link href="/login">
+              <Link href="/login">
                 <Button variant="outline" className="w-full bg-transparent">
                   Login
                 </Button>
               </Link>
               <Link href="/signup">
                 <Button className="w-full">Sign Up</Button>
-              </Link>*/}
+              </Link>
             </div>
           </div>
         </div>

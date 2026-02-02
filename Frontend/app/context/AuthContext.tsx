@@ -1,24 +1,40 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
+import { SessionContext } from "../types"
+import axios from "axios"
 
-const AuthContext = createContext<any>(null)
+type AuthContextType = {
+    user: SessionContext | null,
+    setUser: React.Dispatch<React.SetStateAction<SessionContext | null>>
+    loading: boolean
+}
+
+export const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState<SessionContext | null>(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetch("/api/auth/me")
-            .then(res => res.json())
-            .then(data => {
-                setUser(data.user)
-                setLoading(false)
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/verify`, {
+            withCredentials: true,
+        })
+            .then(res => {
+                setUser(res.data.user);
             })
-    }, [])
+            .catch(err => {
+                console.log("No active session", err.response?.status);
+                setUser(null);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, []);
+
 
     return (
-        <AuthContext.Provider value={{ user, loading }}>
+        <AuthContext.Provider value={{ user, setUser, loading }}>
             {children}
         </AuthContext.Provider>
     )

@@ -2,7 +2,6 @@
 'use server'
 
 import { FormState } from '../lib/definitions.ts'
-import bcrypt from 'bcryptjs'
 import axios from 'axios'
 import { redirect } from 'next/navigation'
 import { createSession, deleteSession } from '../lib/sessions.ts'
@@ -21,6 +20,8 @@ export async function signup(formstate: FormState, formData: FormData) {
     password: formData.get('password'),
   })
 
+  const ROLE = 'user'
+
   if (!validatedFields.success) {
     console.error("Validation failed:", validatedFields.error.format());
   } else {
@@ -37,7 +38,7 @@ export async function signup(formstate: FormState, formData: FormData) {
   const { firstName, lastName, email, state, phone, farmType, password } = validatedFields.data;
 
   // 3. Insert the user into the database or call an Auth Library's API
-  const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/signup/`, {
+  const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/signup/`, {
     firstName,
     lastName,
     email,
@@ -45,18 +46,21 @@ export async function signup(formstate: FormState, formData: FormData) {
     phone,
     farmType,
     password,
+    ROLE
   })
 
-  console.log(res)
+  if (!data) {
+    return {
+      message: 'An error occurred while creating your account.',
+    }
+  }
 
-  // if (!data) {
-  //   return {
-  //     message: 'An error occurred while creating your account.',
-  //   }
-  // }
-
-  // await createSession(email, password, data.UserId, "user")
-  // redirect('/')
+  const session = await createSession(email, password, data?.session?.user_id, data?.session?.role)
+  await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/save_session/`, {
+    session,
+    userId: data?.session?.user_id
+  })
+  redirect('/')
 }
 
 export async function login(formstate: FormState, formData: FormData) {

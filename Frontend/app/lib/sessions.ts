@@ -37,6 +37,8 @@ export async function createSession(email: string, password: string, userId: str
         sameSite: 'lax',
         path: '/',
     })
+
+    return session;
 }
 
 export async function updateSession() {

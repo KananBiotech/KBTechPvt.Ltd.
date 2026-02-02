@@ -1,8 +1,9 @@
 from django.db import models
+import uuid
 
 # Create your models here.
-class User(models.Model):
-    id = models.UUIDField(primary_key=True, editable=False)
+class Users(models.Model):
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     created = models.DateTimeField(auto_now_add=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -11,15 +12,18 @@ class User(models.Model):
     phone = models.CharField(max_length=15)
     state = models.CharField(max_length=30)
     farm_type = models.CharField(max_length=50)
+    role = models.CharField(max_length=10, default='user')
 
     class Meta:
         ordering = ["created"]
 
 class Sessions(models.Model):
-    id = models.UUIDField(primary_key=True, editable=False)
+    id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
     created_at = models.DateTimeField(auto_now_add=True)
+    session = models.CharField(default="")
     user_id = models.UUIDField()
     expires_at = models.DateTimeField()
+    role = models.CharField(max_length=10, default='user')
 
     class Meta:
         ordering = ["created_at"]

@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from .models import User, Sessions
+from .models import Users, Sessions
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
+        model = Users
         fields = '__all__'
     
-class SessionSerializer(serializers.Serializer):
+class SessionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sessions
         fields = '__all__'

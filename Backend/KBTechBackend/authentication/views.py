@@ -2,6 +2,7 @@ import os
 from datetime import datetime, timedelta
 from django.utils import timezone
 from dotenv import load_dotenv
+from .models import Users, Sessions
 from .serializer import UserSerializer, SessionSerializer
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view, permission_classes
@@ -38,6 +39,7 @@ def register(request):
             "state": data.get("state"),
             "phone": data.get("phone"),
             "farm_type": data.get("farmType"),
+            "role": data.get("ROLE"),
         }
 
         user_serializer = UserSerializer(data=user_data)
@@ -56,7 +58,8 @@ def register(request):
 
         session_data = {
             "user_id": user.id, # type: ignore
-            "expires_at": timezone.now() + timedelta(weeks=1)
+            "expires_at": timezone.now() + timedelta(weeks=1),
+            "role": user.role  # type: ignore
         }
 
         print('session_data ' , session_data)
@@ -71,7 +74,8 @@ def register(request):
                 status=400
             )
 
-        session_serializer.save()
+        serialised = session_serializer.save()
+        print("serialised data: ", serialised)
 
         return JsonResponse(
             {
@@ -87,5 +91,41 @@ def register(request):
             status=500
         )
 
+@csrf_exempt
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def verify(request):
-    return HttpResponse("User Info View")
+    session = request.COOKIES.get('session')
+
+@csrf_exempt
+@api_view(['PUT'])
+@permission_classes([AllowAny])
+def save_session(request):
+    
+    session = request.data.get('session')
+    userId = request.data.get('userId')
+
+    if not session or not userId:
+        return JsonResponse(
+            {
+                "status": 404,
+                "message": "Parameter not found"
+            }
+        )
+
+    Sessions.objects.filter(user_id=userId).update(session=session)
+    return JsonResponse(
+        {
+            "status": 500,
+            "message": "object modified"
+        }
+    )
+
+
+@csrf_exempt
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
+def delete_all(request):
+    Users.objects.filter().delete()
+    Sessions.objects.filter().delete()
+    return HttpResponse("all users deleted.")
