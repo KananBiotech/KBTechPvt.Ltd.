@@ -78,21 +78,21 @@ export async function login(formstate: FormState, formData: FormData) {
 
   const { email, password } = validatedFields.data
 
-  const res = axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
+  const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`, {
     email: email,
     password: password,
   })
 
-  const user = (await res).data
+  console.log(res)
 
-  if (!user) {
-    return {
-      message: 'Invalid email or password.',
-    }
-  }
+  // if (!user) {
+  //   return {
+  //     message: 'Invalid email or password.',
+  //   }
+  // }
 
-  await createSession(email as string, password as string, user.UserId, user.Role)
-  redirect('/')
+  // await createSession(email as string, password as string, user.UserId, user.Role)
+  // redirect('/')
 }
 
 export async function logout() {

@@ -8,19 +8,73 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view, permission_classes
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 
 load_dotenv()
 
 # Create your views here.
+@csrf_exempt
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def login(request):
     try:
-        return HttpResponse("Login View")
-    except Exception as e:
-        raise e
+        email = request.data.get('email')
+        password = request.data.get('password')
 
+        existing_user = Users.objects.filter(email=email)[0]
+        if existing_user and check_password(password=password, encoded=existing_user.password):
+            existing_sessions = Sessions.objects.filter(userId=existing_user.id)
+
+            # Delete existing sessions 
+            if existing_sessions:
+                for session in existing_sessions:
+                    session.delete() 
+
+            session = {
+                "session": "",
+                "user_id": existing_user.id,
+                "expires_at": timezone.now() + timedelta(weeks=1),
+                "role": existing_user.role
+            }
+
+            sesson_serializer = SessionSerializer(data=session)
+
+            if not sesson_serializer.is_valid():
+                return JsonResponse(
+                    {"errors": sesson_serializer.errors},
+                    status=400
+                )
+            sesson_serializer.save()
+
+            return JsonResponse(status=201, data={
+                "message": "User Logged In",
+                "user_id": existing_user.id,
+                "role": existing_user.role
+            })
+        
+        else:
+            return JsonResponse(status=404, data={
+                "message": "User not found"
+            })
+
+    except Exception as e:
+        return JsonResponse(status=500, data={"message": "Internal Server Error"})
+
+@csrf_exempt
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
 def logout(request):
-    return HttpResponse("Logout View")
+    try:
+        session = request.COOKIES.get('session')
+        user_session = Sessions.objects.filter(session=session)[0]
+
+        if not user_session:
+            return JsonResponse(status=404, data={"message" : "Invalid Session"})
+        
+        user_session.delete()
+        return JsonResponse(status=204, data={"message": "Logout Successfull"})
+    except Exception as e:
+        return JsonResponse(status=500, data={"message": "Internal Server Error"})
 
 @csrf_exempt
 @api_view(['POST'])
@@ -86,16 +140,32 @@ def register(request):
         )
 
     except Exception as e:
-        return JsonResponse(
-            {"error": str(e)},
-            status=500
-        )
+        return JsonResponse(status=500, data={"message": "Internal Server Error"})
 
 @csrf_exempt
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def verify(request):
     session = request.COOKIES.get('session')
+    print(session)
+
+    if not session:
+        return JsonResponse(
+            {"message": "session not found"},
+            status=404
+        )
+
+    user_session = Sessions.objects.filter(session=session)[0]
+
+    if user_session.expires_at < timezone.now():
+        user_session.delete()
+        return JsonResponse(data={
+            "message": "Session Expired"
+        }, status=404)
+
+    response = {"user_id": user_session.user_id, "role": user_session.role, 'expires_at': user_session.expires_at }
+    print("response = ", response)
+    return JsonResponse(data=response, status=200)
 
 @csrf_exempt
 @api_view(['PUT'])
