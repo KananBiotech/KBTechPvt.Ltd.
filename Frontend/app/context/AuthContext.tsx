@@ -10,21 +10,31 @@ type AuthContextType = {
     loading: boolean
 }
 
-export const AuthContext = createContext<AuthContextType | null>(null)
+export const AuthContext = createContext<AuthContextType>({
+    user: null,
+    setUser: (() => {}),
+    loading: false
+})
+
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<SessionContext | null>(null)
     const [loading, setLoading] = useState(true)
-
+    
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/verify`, {
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/verify/`, {
             withCredentials: true,
         })
             .then(res => {
-                setUser(res.data.user);
+                setUser({
+                    expiresAt: res.data.expires_at,
+                    user: {
+                        userId: res.data.user_id,
+                        role: res.data.role
+                    }
+                });
             })
             .catch(err => {
-                console.log("No active session", err.response?.status);
                 setUser(null);
             })
             .finally(() => {
@@ -41,4 +51,4 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 
-export const useAuth = () => useContext(AuthContext)
+export const useAuth = () => useContext<AuthContextType>(AuthContext)

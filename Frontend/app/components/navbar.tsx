@@ -1,14 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import { Menu, X, Fish, ChevronDown } from "lucide-react"
-import { Button } from "../components/ui/button"
-
+import { Button } from "./ui/button"
+import { useAuth } from "../context/AuthContext"
+import Logout from "./Logout"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [showProducts, setShowProducts] = useState(false)
+
+  const { user } = useAuth();
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -42,7 +45,7 @@ export function Navbar() {
                     onMouseLeave={() => setShowProducts(false)}
                     className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                   >
-                     {link?.name}
+                    {link?.name}
                     <ChevronDown className="w-4 h-4" />
                   </button>
                 ) : (
@@ -50,7 +53,7 @@ export function Navbar() {
                     href={link.href}
                     className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                   >
-                     {link?.name}
+                    {link?.name}
                   </Link>
                 )}
                 {link.hasDropdown && showProducts && (
@@ -77,14 +80,20 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center gap-3">
-            {/*<Link href="/login">
-              <Button variant="ghost">Login</Button>
-            </Link>
-            <Link href="/signup">
-              <Button>Sign Up</Button>
-            </Link>*/}
-          </div>
+          {user ? (
+            <div className="hidden lg:flex items-center gap-3">
+              <Logout />
+            </div>
+          ) : (
+            <div className="hidden lg:flex items-center gap-3">
+              <Link href="/login">
+                <Button variant="ghost">Login</Button>
+              </Link>
+              <Link href="/signup">
+                <Button>Sign Up</Button>
+              </Link>
+            </div>
+          )}
 
           <button className="lg:hidden p-2" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
